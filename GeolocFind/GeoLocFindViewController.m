@@ -7,37 +7,19 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "ForwardGeocodeResultsList.h"
+#import "GeoLocFindViewController.h"
 #import "CustomPlacemark.h"
 #import "CustomTitleView.h"
-#import "AppDelegate.h"
+#import "LocationManager.h"
 
-#define kMapMode			1
-#define kListMode			0
+@implementation GeoLocFindViewController
 
-@implementation ForwardGeocodeResultsList
-/*
-- (id)initWithDelegate:(NSObject<ForwardGeocodeResultsDelegate>*)_delegate results:(NSArray*)_results;
+- (id)initWithDelegate:(id<GeoLocFindViewDelegate>)delegate
 {
 	self = [super initWithNibName:nil bundle:nil];
 	if (self)
 	{
-		// Custom initialization.
-		mArrayResults = [_results retain];
-		mArrayPlacemarks
-		
-		mDelegate = [_delegate retain];
-	}
-	return self;
-}*/
-
-- (id)initWithDelegate:(NSObject <ForwardGeocodeDelegate>*)_delegate
-{
-	self = [super initWithNibName:nil bundle:nil];
-	if (self)
-	{
-		// Custom initialization.
-
+        mDelegate = delegate;
 	}
 	
 	return self;
@@ -48,14 +30,9 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self) 
     {
-        mArrayResults = [[NSMutableArray array] retain];
-		mArrayPlacemarks = [[NSMutableArray array] retain];
-		
 		mForwardGeocoder = [[BSForwardGeocoder alloc] initWithDelegate:self];
-		
 		mDelegate = [query objectForKey:kURLQueryDelegate];
         
-		mMapController = [[ForwardGeocodeResultsMap alloc] initWithDelegate:self results:mArrayPlacemarks];
     }
     return self;
 }
@@ -73,25 +50,19 @@
     TTButton *backButtonView = [TTButton buttonWithStyle:@"toolbarModalCancelButton:" title:@"  Retour"]; 
     backButtonView.frame = CGRectMake(0, 0, 55, 32);
     [backButtonView addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:backButtonView] autorelease];
-	
-	CGRect frame = mMapController.view.frame;
-	frame.origin.y = 88;
-	mMapController.view.frame = frame;
-	
-	CALayer *layer = mMapController.view.layer;
-	CATransform3D transform = layer.transform;
-	transform = CATransform3DRotate(transform, M_PI, 0, 1, 0);
-	
-	mMapController.view.layer.transform = transform;
-	
-	mMapController.view.layer.doubleSided = NO;
-	
-	[self.view addSubview:mMapController.view];
-	
-	mTableView.layer.doubleSided = NO;
-	
-	[self.view bringSubviewToFront:mTableView];
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:backButtonView] autorelease];	
+    
+    mSearchBar = [[UISearchBar alloc] init];
+    mSearchBar.placeholder = NSLocalizedString(@"Type an address to search", nil) ;
+    mSearchBar.tintColor = [UIColor blackColor];
+    
+    mSearchBar.delegate = self;
+    
+    [mSearchBar sizeToFit];
+    bSearchIsOn = NO;
+    
+    [mSearchBar setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+    [mSearchBar sizeToFit];
 }
 
 - (void) goBack:(id)sender
@@ -104,12 +75,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [mSearchBar becomeFirstResponder];
-//    
-//    //set navgation bar image
-//    AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-//    appDelegate.titleBarType = kBarDefault;
-//    [self.navigationController.navigationBar setNeedsDisplay];
-
 }
 
 // Override to allow orientations other than the default portrait orientation.
@@ -132,30 +97,23 @@
     // Release any cached data, images, etc. that aren't in use.
 }
 
-- (void)viewDidUnload {
-    [mListButton release];
-    mListButton = nil;
-    [mMapButton release];
-    mMapButton = nil;
+- (void)cleanup {
     [mForwardGeocoder release];
     mForwardGeocoder = nil;
+    [mSearchBar release];
+    mSearchBar = nil;
+    mDelegate = nil;
+}
+
+- (void)viewDidUnload {
+    [self cleanup];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-	mTableView = nil;
 }
 
 
 - (void)dealloc
 {
-	[mTableView release];
-	
-	[mArrayResults release];
-	
-    [mForwardGeocoder release];
-	
-    [mListButton release];
-    [mMapButton release];
+    [self cleanup];
 	[super dealloc];
 }
 
@@ -172,15 +130,15 @@
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
 	}
 	
-	cell.textLabel.text = [((CustomPlacemark*)[mArrayPlacemarks objectAtIndex:indexPath.row]) title];
+	cell.textLabel.text = [((CustomPlacemark*)[mTableData objectAtIndex:indexPath.row]) title];
 	
 	return cell;
 }
 
-- (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
-{
-	return [mArrayPlacemarks count];
-}
+//- (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
+//{
+//	return [mArrayPlacemarks count];
+//}
 
 #pragma mark -
 #pragma mark TableView Delegate Methods
@@ -189,7 +147,7 @@
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	
-	CustomPlacemark* place =  (CustomPlacemark*)[mArrayPlacemarks objectAtIndex:indexPath.row];
+	CustomPlacemark* place =  (CustomPlacemark*)[mTableData objectAtIndex:indexPath.row];
 	
 //	CLLocation* location = [[[CLLocation alloc] initWithLatitude:place.mCoordinateRegion.center.latitude longitude:place.mCoordinateRegion.center.longitude] autorelease];
 	
@@ -197,85 +155,10 @@
 	[self.parentViewController dismissModalViewControllerAnimated:YES];
 }
 
-
-#pragma mark -
-#pragma mark Actions
-- (IBAction) displayModeChanged:(id)sender
-{
-    if ([sender isKindOfClass:[UIButton class]])
-	{
-		NSInteger index = ((UIButton *)sender).tag;
-		switch (index)
-		{
-			case kMapMode:
-			{
-                mListButton.enabled = YES;
-                mMapButton.enabled = NO;
-                
-				CATransform3D transform;
-				
-				[UIView beginAnimations:nil context:nil];
-				[UIView setAnimationDuration:0.5];
-				[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-				
-				transform = mMapController.view.layer.transform;
-				transform = CATransform3DRotate(transform, M_PI, 0, -1, 0);
-				mMapController.view.layer.transform = transform;
-				
-				transform = mTableView.layer.transform;
-				transform = CATransform3DRotate(transform, M_PI, 0, -1, 0);
-				mTableView.layer.transform = transform;
-				
-				//[mListController.view setHidden:YES];
-				//[mListController.view.layer setHidden:YES];
-				[self.view bringSubviewToFront:mMapController.view];
-				
-				[UIView commitAnimations];
-				break;
-			}
-			case kListMode:
-			{
-                mListButton.enabled = NO;
-                mMapButton.enabled = YES;
-                
-				CATransform3D transform;
-				
-				[UIView beginAnimations:nil context:nil];
-				[UIView setAnimationDuration:0.5];
-				[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-				
-				transform = mMapController.view.layer.transform;
-				transform = CATransform3DRotate(transform, M_PI, 0, 1, 0);
-				mMapController.view.layer.transform = transform;
-				
-				transform = mTableView.layer.transform;
-				transform = CATransform3DRotate(transform, M_PI, 0, 1, 0);
-				mTableView.layer.transform = transform;
-				
-				//[mListController.view setHidden:NO];
-				//[mListController.view.layer setHidden:NO];
-				
-				[self.view bringSubviewToFront:mTableView];
-				
-				[UIView commitAnimations];
-				break;
-			}
-			default:
-				break;
-		}
-	}
-}
-
-- (IBAction)exit
-{
-	[self dismissModalViewControllerAnimated:YES];
-}
-
 #pragma mark -
 #pragma mark SearchBar Delegate Methods
 - (void)enableCancelButton:(UISearchBar *)aSearchBar
 {
-	DLog(@"");
 	for (id subview in [aSearchBar subviews])
 	{
 		if ([subview isKindOfClass:[UIButton class]])
@@ -330,26 +213,24 @@
 
 #pragma mark -
 #pragma mark Map Custom Methods
-- (void)createPlacemarks
+
+-(void) refreshWithBSKmlResults:(NSArray*)results
 {
-	for(BSKmlResult* place in mArrayResults)
-	{
-//		NSLog(@"%@", [place description]);
-		// Add a placemark on the map
-		CustomPlacemark* placemark = [[[CustomPlacemark alloc] initWithBSKmlResult:place] autorelease];
+    for(BSKmlResult* place in [mForwardGeocoder results])
+    {
+        //createPlacemark
+        CustomPlacemark* placemark = [[[CustomPlacemark alloc] initWithBSKmlResult:place] autorelease];
         
         if (placemark.title)
-            [mArrayPlacemarks addObject:placemark];
-		
-		NSArray *countryName = [place findAddressComponent:@"country"];
-		if([countryName count] > 0)
-		{
-//			NSLog(@"Country: %@", ((BSAddressComponent*)[countryName objectAtIndex:0]).longName );
-		}
-	}
+            [mTableData addObject:placemark];
+        
+        NSArray *countryName = [place findAddressComponent:@"country"];
+        if([countryName count] > 0)
+        {
+            //			NSLog(@"Country: %@", ((BSAddressComponent*)[countryName objectAtIndex:0]).longName );
+        }
+    }
 }
-
-
 
 #pragma mark -
 #pragma mark BSForwardGeocoder Delegate Method
@@ -364,22 +245,9 @@
 	}
 	else
 	{
-		if (mArrayResults != nil)
-		{
-			[mArrayResults release];
-			mArrayResults = nil;
-		}
-		
-		[mArrayPlacemarks removeAllObjects];
-		
-		mArrayResults = [[[NSMutableArray alloc] initWithArray:[mForwardGeocoder results]] retain];
-		
-		[self createPlacemarks];
-		[mTableView reloadData];
-		//[self changeMapAnnotations];
+        [self refreshWithBSKmlResults:[mForwardGeocoder results]];
 	}
-	
-	[mMapController refreshResults];
+	[self refreshAfterData];
 }
 
 #pragma mark -
@@ -388,17 +256,8 @@
 {
 	mSearchBar.text = _string;
 	
-	if(mArrayResults != nil)
-	{
-		[mArrayResults release];
-		mArrayResults = nil;
-	}
-	[mArrayPlacemarks removeAllObjects];
-	
-	mArrayResults = [_results retain];
-	
-	[self createPlacemarks];
-	[mTableView reloadData];
+    [self refreshWithBSKmlResults:_results];
+    [self refreshAfterData];
 	//[self changeMapAnnotations];
 }
 
@@ -409,7 +268,7 @@
 	 [controller release];*/
 	[mDelegate newLocation:placemark];
 	
-	[self dismissModalViewControllerAnimated:YES];
+	[self goBack:nil];
 }
 
 @end

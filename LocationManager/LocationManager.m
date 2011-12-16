@@ -7,6 +7,7 @@
 //
 
 #import "LocationManager.h"
+#import "GeoLocFindViewController.h"
 
 @implementation LocationManager
 
@@ -169,19 +170,24 @@ static LocationManager*	sharedInstance = nil;
 
 #pragma mark - Custom Location
 
--(void) chooseCustomLocation
+-(void) chooseCustomLocationFromController:(UIViewController*) parentController
 {
     //around adress
-    if (mViewControllerURL == nil)
-    {
-        DLog(@"viewControllerURL has not been set!");
-    }
-    else
-    {
-        NSMutableDictionary* query = [NSMutableDictionary dictionary];
-        [query setValue:(id)self forKey:kURLQueryDelegate];
-        IPOpenURLWithQuery(mViewControllerURL, query);
-    }
+//    if (mViewControllerURL == nil)
+//    {
+//        DLog(@"viewControllerURL has not been set!");
+//    }
+//    else
+//    {
+        GeoLocFindViewController* controller = [[GeoLocFindViewController alloc] initWithDelegate:self];
+        
+        UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+        
+        [[parentController navigationController] presentModalViewController:navigationController animated:YES];
+//        NSMutableDictionary* query = [NSMutableDictionary dictionary];
+//        [query setValue:(id)self forKey:kURLQueryDelegate];
+//        TTOpenURLWithQuery(mViewControllerURL, query);
+//    }
 }
 
 #pragma mark - ForwardGeocodeDelegate Methods

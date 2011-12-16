@@ -3,6 +3,3 @@
 #   import <Foundation/Foundation.h>
 #   import <UIKit/UIKit.h>
 #endif
-
-#define kUserLocationTimestampStoreKey  @"User_location_timestamp"
-#define kUserLocationStoreKey           @"User_location"

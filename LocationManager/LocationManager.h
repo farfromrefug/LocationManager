@@ -11,8 +11,14 @@
 #import <MapKit/MapKit.h>
 #import "CustomPlacemark.h"
 #import "BSForwardGeocoder.h"
+#import "GeoLocFindViewDelegate.h"
 
-@interface LocationManager : NSObject <CLLocationManagerDelegate, BSForwardGeocoderDelegate, ForwardGeocodeDelegate> {
+#define kURLQueryDelegate               @"delegate"
+
+#define kUserLocationTimestampStoreKey  @"User_location_timestamp"
+#define kUserLocationStoreKey           @"User_location"
+
+@interface LocationManager : NSObject <CLLocationManagerDelegate, BSForwardGeocoderDelegate, GeoLocFindViewDelegate> {
     CLLocationManager*                  mLocationManager;
     CLLocation*                         mCurrentLocation;
     CustomPlacemark*                    mCurrentPlacemark;
@@ -40,6 +46,6 @@
 - (void)startSignificantChangeUpdates;
 - (void)stopSignificantChangeUpdates;
 
--(void) chooseCustomLocation;
+-(void) chooseCustomLocationFromController:(UIViewController*) parentController;
 
 @end

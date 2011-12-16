@@ -1,10 +1,3 @@
-//
-//  ForwardGeocodeResultsDelegate.h
-//  LaFourchetteV2
-//
-//  Created by Christophe on 10/01/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 #import "CustomPlacemark.h"
@@ -18,7 +11,7 @@
 @end
 
 
-@protocol ForwardGeocodeDelegate
+@protocol GeoLocFindViewDelegate
 
 - (void)newLocation:(CustomPlacemark*)placemark;
 

@@ -1,0 +1,320 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D5C15B581494D69F000171BF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5C15B571494D69F000171BF /* Foundation.framework */; };
+		D5C15B5E1494D69F000171BF /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C15B5D1494D69F000171BF /* LocationManager.m */; };
+		D5C15B761494D71A000171BF /* BSAddressComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C15B6A1494D71A000171BF /* BSAddressComponent.h */; };
+		D5C15B771494D71A000171BF /* BSAddressComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C15B6B1494D71A000171BF /* BSAddressComponent.m */; };
+		D5C15B781494D71A000171BF /* BSForwardGeocoder.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C15B6C1494D71A000171BF /* BSForwardGeocoder.h */; };
+		D5C15B791494D71A000171BF /* BSForwardGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C15B6D1494D71A000171BF /* BSForwardGeocoder.m */; };
+		D5C15B7A1494D71A000171BF /* BSGoogleV2KmlParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C15B6E1494D71A000171BF /* BSGoogleV2KmlParser.h */; };
+		D5C15B7B1494D71A000171BF /* BSGoogleV2KmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C15B6F1494D71A000171BF /* BSGoogleV2KmlParser.m */; };
+		D5C15B7C1494D71A000171BF /* BSGoogleV3KmlParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C15B701494D71A000171BF /* BSGoogleV3KmlParser.h */; };
+		D5C15B7D1494D71A000171BF /* BSGoogleV3KmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C15B711494D71A000171BF /* BSGoogleV3KmlParser.m */; };
+		D5C15B7E1494D71A000171BF /* BSKmlResult.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C15B721494D71A000171BF /* BSKmlResult.h */; };
+		D5C15B7F1494D71A000171BF /* BSKmlResult.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C15B731494D71A000171BF /* BSKmlResult.m */; };
+		D5C15B801494D71A000171BF /* CustomPlacemark.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C15B741494D71A000171BF /* CustomPlacemark.h */; };
+		D5C15B811494D71A000171BF /* CustomPlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C15B751494D71A000171BF /* CustomPlacemark.m */; };
+		D5C15B891494D720000171BF /* ForwardGeocodeResultsDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C15B821494D720000171BF /* ForwardGeocodeResultsDelegate.h */; };
+		D5C15B8A1494D720000171BF /* ForwardGeocodeResultsList.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C15B831494D720000171BF /* ForwardGeocodeResultsList.h */; };
+		D5C15B8B1494D720000171BF /* ForwardGeocodeResultsList.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C15B841494D720000171BF /* ForwardGeocodeResultsList.m */; };
+		D5C15B8C1494D720000171BF /* ForwardGeocodeResultsMap.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C15B861494D720000171BF /* ForwardGeocodeResultsMap.h */; };
+		D5C15B8D1494D720000171BF /* ForwardGeocodeResultsMap.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C15B871494D720000171BF /* ForwardGeocodeResultsMap.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D5C15B541494D69F000171BF /* libLocationManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLocationManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5C15B571494D69F000171BF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D5C15B5B1494D69F000171BF /* LocationManager-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LocationManager-Prefix.pch"; sourceTree = "<group>"; };
+		D5C15B5C1494D69F000171BF /* LocationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
+		D5C15B5D1494D69F000171BF /* LocationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
+		D5C15B6A1494D71A000171BF /* BSAddressComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BSAddressComponent.h; path = BSForwardGeocoding/BSAddressComponent.h; sourceTree = "<group>"; };
+		D5C15B6B1494D71A000171BF /* BSAddressComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BSAddressComponent.m; path = BSForwardGeocoding/BSAddressComponent.m; sourceTree = "<group>"; };
+		D5C15B6C1494D71A000171BF /* BSForwardGeocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BSForwardGeocoder.h; path = BSForwardGeocoding/BSForwardGeocoder.h; sourceTree = "<group>"; };
+		D5C15B6D1494D71A000171BF /* BSForwardGeocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BSForwardGeocoder.m; path = BSForwardGeocoding/BSForwardGeocoder.m; sourceTree = "<group>"; };
+		D5C15B6E1494D71A000171BF /* BSGoogleV2KmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BSGoogleV2KmlParser.h; path = BSForwardGeocoding/BSGoogleV2KmlParser.h; sourceTree = "<group>"; };
+		D5C15B6F1494D71A000171BF /* BSGoogleV2KmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BSGoogleV2KmlParser.m; path = BSForwardGeocoding/BSGoogleV2KmlParser.m; sourceTree = "<group>"; };
+		D5C15B701494D71A000171BF /* BSGoogleV3KmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BSGoogleV3KmlParser.h; path = BSForwardGeocoding/BSGoogleV3KmlParser.h; sourceTree = "<group>"; };
+		D5C15B711494D71A000171BF /* BSGoogleV3KmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BSGoogleV3KmlParser.m; path = BSForwardGeocoding/BSGoogleV3KmlParser.m; sourceTree = "<group>"; };
+		D5C15B721494D71A000171BF /* BSKmlResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BSKmlResult.h; path = BSForwardGeocoding/BSKmlResult.h; sourceTree = "<group>"; };
+		D5C15B731494D71A000171BF /* BSKmlResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BSKmlResult.m; path = BSForwardGeocoding/BSKmlResult.m; sourceTree = "<group>"; };
+		D5C15B741494D71A000171BF /* CustomPlacemark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomPlacemark.h; path = BSForwardGeocoding/CustomPlacemark.h; sourceTree = "<group>"; };
+		D5C15B751494D71A000171BF /* CustomPlacemark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomPlacemark.m; path = BSForwardGeocoding/CustomPlacemark.m; sourceTree = "<group>"; };
+		D5C15B821494D720000171BF /* ForwardGeocodeResultsDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForwardGeocodeResultsDelegate.h; path = GeolocFind/ForwardGeocodeResultsDelegate.h; sourceTree = "<group>"; };
+		D5C15B831494D720000171BF /* ForwardGeocodeResultsList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForwardGeocodeResultsList.h; path = GeolocFind/ForwardGeocodeResultsList.h; sourceTree = "<group>"; };
+		D5C15B841494D720000171BF /* ForwardGeocodeResultsList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForwardGeocodeResultsList.m; path = GeolocFind/ForwardGeocodeResultsList.m; sourceTree = "<group>"; };
+		D5C15B851494D720000171BF /* ForwardGeocodeResultsList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ForwardGeocodeResultsList.xib; path = GeolocFind/ForwardGeocodeResultsList.xib; sourceTree = "<group>"; };
+		D5C15B861494D720000171BF /* ForwardGeocodeResultsMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForwardGeocodeResultsMap.h; path = GeolocFind/ForwardGeocodeResultsMap.h; sourceTree = "<group>"; };
+		D5C15B871494D720000171BF /* ForwardGeocodeResultsMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ForwardGeocodeResultsMap.m; path = GeolocFind/ForwardGeocodeResultsMap.m; sourceTree = "<group>"; };
+		D5C15B881494D720000171BF /* ForwardGeocodeResultsMap.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ForwardGeocodeResultsMap.xib; path = GeolocFind/ForwardGeocodeResultsMap.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D5C15B511494D69F000171BF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5C15B581494D69F000171BF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D5C15B491494D69F000171BF = {
+			isa = PBXGroup;
+			children = (
+				D5C15B691494D702000171BF /* BSForwardGeoDecoding */,
+				D5C15B671494D6FE000171BF /* GeolocFind */,
+				D5C15B591494D69F000171BF /* LocationManager */,
+				D5C15B561494D69F000171BF /* Frameworks */,
+				D5C15B551494D69F000171BF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D5C15B551494D69F000171BF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D5C15B541494D69F000171BF /* libLocationManager.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D5C15B561494D69F000171BF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D5C15B571494D69F000171BF /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D5C15B591494D69F000171BF /* LocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				D5C15B5C1494D69F000171BF /* LocationManager.h */,
+				D5C15B5D1494D69F000171BF /* LocationManager.m */,
+				D5C15B5A1494D69F000171BF /* Supporting Files */,
+			);
+			path = LocationManager;
+			sourceTree = "<group>";
+		};
+		D5C15B5A1494D69F000171BF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D5C15B5B1494D69F000171BF /* LocationManager-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D5C15B671494D6FE000171BF /* GeolocFind */ = {
+			isa = PBXGroup;
+			children = (
+				D5C15B821494D720000171BF /* ForwardGeocodeResultsDelegate.h */,
+				D5C15B831494D720000171BF /* ForwardGeocodeResultsList.h */,
+				D5C15B841494D720000171BF /* ForwardGeocodeResultsList.m */,
+				D5C15B851494D720000171BF /* ForwardGeocodeResultsList.xib */,
+				D5C15B861494D720000171BF /* ForwardGeocodeResultsMap.h */,
+				D5C15B871494D720000171BF /* ForwardGeocodeResultsMap.m */,
+				D5C15B881494D720000171BF /* ForwardGeocodeResultsMap.xib */,
+			);
+			name = GeolocFind;
+			sourceTree = "<group>";
+		};
+		D5C15B691494D702000171BF /* BSForwardGeoDecoding */ = {
+			isa = PBXGroup;
+			children = (
+				D5C15B6A1494D71A000171BF /* BSAddressComponent.h */,
+				D5C15B6B1494D71A000171BF /* BSAddressComponent.m */,
+				D5C15B6C1494D71A000171BF /* BSForwardGeocoder.h */,
+				D5C15B6D1494D71A000171BF /* BSForwardGeocoder.m */,
+				D5C15B6E1494D71A000171BF /* BSGoogleV2KmlParser.h */,
+				D5C15B6F1494D71A000171BF /* BSGoogleV2KmlParser.m */,
+				D5C15B701494D71A000171BF /* BSGoogleV3KmlParser.h */,
+				D5C15B711494D71A000171BF /* BSGoogleV3KmlParser.m */,
+				D5C15B721494D71A000171BF /* BSKmlResult.h */,
+				D5C15B731494D71A000171BF /* BSKmlResult.m */,
+				D5C15B741494D71A000171BF /* CustomPlacemark.h */,
+				D5C15B751494D71A000171BF /* CustomPlacemark.m */,
+			);
+			name = BSForwardGeoDecoding;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D5C15B521494D69F000171BF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5C15B761494D71A000171BF /* BSAddressComponent.h in Headers */,
+				D5C15B781494D71A000171BF /* BSForwardGeocoder.h in Headers */,
+				D5C15B7A1494D71A000171BF /* BSGoogleV2KmlParser.h in Headers */,
+				D5C15B7C1494D71A000171BF /* BSGoogleV3KmlParser.h in Headers */,
+				D5C15B7E1494D71A000171BF /* BSKmlResult.h in Headers */,
+				D5C15B801494D71A000171BF /* CustomPlacemark.h in Headers */,
+				D5C15B891494D720000171BF /* ForwardGeocodeResultsDelegate.h in Headers */,
+				D5C15B8A1494D720000171BF /* ForwardGeocodeResultsList.h in Headers */,
+				D5C15B8C1494D720000171BF /* ForwardGeocodeResultsMap.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D5C15B531494D69F000171BF /* LocationManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D5C15B611494D69F000171BF /* Build configuration list for PBXNativeTarget "LocationManager" */;
+			buildPhases = (
+				D5C15B501494D69F000171BF /* Sources */,
+				D5C15B511494D69F000171BF /* Frameworks */,
+				D5C15B521494D69F000171BF /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LocationManager;
+			productName = LocationManager;
+			productReference = D5C15B541494D69F000171BF /* libLocationManager.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D5C15B4B1494D69F000171BF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = D5C15B4E1494D69F000171BF /* Build configuration list for PBXProject "LocationManager" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D5C15B491494D69F000171BF;
+			productRefGroup = D5C15B551494D69F000171BF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D5C15B531494D69F000171BF /* LocationManager */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D5C15B501494D69F000171BF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5C15B5E1494D69F000171BF /* LocationManager.m in Sources */,
+				D5C15B771494D71A000171BF /* BSAddressComponent.m in Sources */,
+				D5C15B791494D71A000171BF /* BSForwardGeocoder.m in Sources */,
+				D5C15B7B1494D71A000171BF /* BSGoogleV2KmlParser.m in Sources */,
+				D5C15B7D1494D71A000171BF /* BSGoogleV3KmlParser.m in Sources */,
+				D5C15B7F1494D71A000171BF /* BSKmlResult.m in Sources */,
+				D5C15B811494D71A000171BF /* CustomPlacemark.m in Sources */,
+				D5C15B8B1494D720000171BF /* ForwardGeocodeResultsList.m in Sources */,
+				D5C15B8D1494D720000171BF /* ForwardGeocodeResultsMap.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D5C15B5F1494D69F000171BF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		D5C15B601494D69F000171BF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D5C15B621494D69F000171BF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/LocationManager.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LocationManager/LocationManager-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		D5C15B631494D69F000171BF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/LocationManager.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LocationManager/LocationManager-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D5C15B4E1494D69F000171BF /* Build configuration list for PBXProject "LocationManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5C15B5F1494D69F000171BF /* Debug */,
+				D5C15B601494D69F000171BF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D5C15B611494D69F000171BF /* Build configuration list for PBXNativeTarget "LocationManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5C15B621494D69F000171BF /* Debug */,
+				D5C15B631494D69F000171BF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D5C15B4B1494D69F000171BF /* Project object */;
+}
