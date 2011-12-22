@@ -13,12 +13,14 @@
 #import "LocationManager.h"
 
 @implementation GeoLocFindViewController
+@synthesize searchBar = mSearchBar;
 
 - (id)initWithDelegate:(id<GeoLocFindViewDelegate>)delegate
 {
 	self = [super initWithNibName:nil bundle:nil];
 	if (self)
 	{
+		mForwardGeocoder = [[BSForwardGeocoder alloc] initWithDelegate:self];
         mDelegate = delegate;
 	}
 	
@@ -44,7 +46,7 @@
 {
 	[super viewDidLoad];
     
-    self.navigationItem.titleView = [[[CustomTitleView alloc] initWithTitle:@"Chercher une adresse"] autorelease];
+    self.navigationItem.titleView = [[[WTTitleView alloc] initWithTitle:@"Chercher une adresse"] autorelease];
     
     //Create the custom back button
     TTButton *backButtonView = [TTButton buttonWithStyle:@"toolbarModalCancelButton:" title:@"  Retour"]; 
@@ -52,17 +54,17 @@
     [backButtonView addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:backButtonView] autorelease];	
     
-    mSearchBar = [[UISearchBar alloc] init];
-    mSearchBar.placeholder = NSLocalizedString(@"Type an address to search", nil) ;
+//    mSearchBar = [[UISearchBar alloc] init];
+//    mSearchBar.placeholder = NSLocalizedString(@"Type an address to search", nil) ;
     mSearchBar.tintColor = [UIColor blackColor];
-    
+    [mSearchBar setAutocapitalizationType:UITextAutocapitalizationTypeNone];
     mSearchBar.delegate = self;
-    
-    [mSearchBar sizeToFit];
+//    [self.view addSubview:mSearchBar];
+//    [mSearchBar sizeToFit];
     bSearchIsOn = NO;
     
-    [mSearchBar setAutocapitalizationType:UITextAutocapitalizationTypeNone];
-    [mSearchBar sizeToFit];
+    
+    
 }
 
 - (void) goBack:(id)sender
@@ -216,6 +218,8 @@
 
 -(void) refreshWithBSKmlResults:(NSArray*)results
 {
+    [mTableData release];
+    mTableData = [[NSMutableArray alloc] init];
     for(BSKmlResult* place in [mForwardGeocoder results])
     {
         //createPlacemark

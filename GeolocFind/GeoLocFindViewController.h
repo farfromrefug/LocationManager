@@ -7,7 +7,7 @@
 @interface GeoLocFindViewController : GLMGeoViewController
 	<BSForwardGeocoderDelegate, ForwardGeocodeResultsDelegate, UISearchBarDelegate>
 {
-    UISearchBar*	mSearchBar;
+    IBOutlet UISearchBar*	mSearchBar;
     BOOL            bSearchIsOn;
 	
 	
@@ -15,15 +15,15 @@
 		
 	id<GeoLocFindViewDelegate>	mDelegate;
 }
-//@property (nonatomic, retain) UISearchBar searchBar; 
+@property (nonatomic, retain) UISearchBar* searchBar; 
 //@property (nonatomic, assign) BOOL bSearchIsOn;
 
 
 - (id) initWithNavigatorURL:(NSURL*)URL query:(NSDictionary*)query;
 - (id)initWithDelegate:(id<GeoLocFindViewDelegate>)delegate;
 
-- (IBAction)exit;
+//- (IBAction)exit;
 
-- (IBAction) displayModeChanged:(id)sender;
+//- (IBAction) displayModeChanged:(id)sender;
 
 @end

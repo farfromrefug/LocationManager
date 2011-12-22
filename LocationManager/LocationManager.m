@@ -182,7 +182,8 @@ static LocationManager*	sharedInstance = nil;
         GeoLocFindViewController* controller = [[GeoLocFindViewController alloc] initWithDelegate:self];
         
         UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-        
+        [navigationController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+        [navigationController setModalPresentationStyle:UIModalPresentationFormSheet];
         [[parentController navigationController] presentModalViewController:navigationController animated:YES];
 //        NSMutableDictionary* query = [NSMutableDictionary dictionary];
 //        [query setValue:(id)self forKey:kURLQueryDelegate];
