@@ -14,14 +14,20 @@
 
 @implementation GeoLocFindViewController
 @synthesize searchBar = mSearchBar;
+@synthesize delegate;
 
-- (id)initWithDelegate:(id<GeoLocFindViewDelegate>)delegate
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+	return  [self initWithDelegate:nil];
+}
+
+- (id)initWithDelegate:(id<GeoLocFindViewDelegate>)dg
 {
 	self = [super initWithNibName:nil bundle:nil];
 	if (self)
 	{
 		mForwardGeocoder = [[BSForwardGeocoder alloc] initWithDelegate:self];
-        mDelegate = delegate;
+        delegate = dg;
 	}
 	
 	return self;
@@ -33,7 +39,7 @@
     if (self) 
     {
 		mForwardGeocoder = [[BSForwardGeocoder alloc] initWithDelegate:self];
-		mDelegate = [query objectForKey:kURLQueryDelegate];
+		delegate = [query objectForKey:kURLQueryDelegate];
         
     }
     return self;
@@ -46,7 +52,7 @@
 {
 	[super viewDidLoad];
     
-    self.navigationItem.titleView = [[[WTTitleView alloc] initWithTitle:@"Chercher une adresse"] autorelease];
+    self.navigationItem.titleView = [[[CustomTitleView alloc] initWithTitle:@"Chercher une adresse"] autorelease];
     
     //Create the custom back button
     TTButton *backButtonView = [TTButton buttonWithStyle:@"toolbarModalCancelButton:" title:@"  Retour"]; 
@@ -104,7 +110,7 @@
     mForwardGeocoder = nil;
     [mSearchBar release];
     mSearchBar = nil;
-    mDelegate = nil;
+    delegate = nil;
 }
 
 - (void)viewDidUnload {
@@ -121,6 +127,12 @@
 
 #pragma mark -
 #pragma mark TableView DataSource Methods
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	static NSString *	  cellIdentifier  = @"StandardCell";
@@ -153,7 +165,8 @@
 	
 //	CLLocation* location = [[[CLLocation alloc] initWithLatitude:place.mCoordinateRegion.center.latitude longitude:place.mCoordinateRegion.center.longitude] autorelease];
 	
-	[mDelegate newLocation:place];
+	[delegate newLocation:place];
+    
 	[self.parentViewController dismissModalViewControllerAnimated:YES];
 }
 
@@ -270,7 +283,7 @@
 	/*SearchResultsViewController* controller = [[SearchResultsViewController alloc] initWithResearch:mResearch];
 	 [self.navigationController pushViewController:controller animated:YES];
 	 [controller release];*/
-	[mDelegate newLocation:placemark];
+	[delegate newLocation:placemark];
 	
 	[self goBack:nil];
 }

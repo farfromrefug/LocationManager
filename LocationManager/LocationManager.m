@@ -170,6 +170,28 @@ static LocationManager*	sharedInstance = nil;
 
 #pragma mark - Custom Location
 
+-(void) chooseCustomLocationFromController:(UIViewController*) parentController usingController:(GeoLocFindViewController*)controller
+{
+    //around adress
+    //    if (mViewControllerURL == nil)
+    //    {
+    //        DLog(@"viewControllerURL has not been set!");
+    //    }
+    //    else
+    //    {
+    controller.delegate = self;
+    
+    UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+    [navigationController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+    [navigationController setModalPresentationStyle:UIModalPresentationFormSheet];
+    [parentController presentModalViewController:navigationController animated:YES];
+    [navigationController release];
+    //        NSMutableDictionary* query = [NSMutableDictionary dictionary];
+    //        [query setValue:(id)self forKey:kURLQueryDelegate];
+    //        TTOpenURLWithQuery(mViewControllerURL, query);
+    //    }
+}
+
 -(void) chooseCustomLocationFromController:(UIViewController*) parentController
 {
     //around adress
@@ -179,12 +201,14 @@ static LocationManager*	sharedInstance = nil;
 //    }
 //    else
 //    {
-        GeoLocFindViewController* controller = [[GeoLocFindViewController alloc] initWithDelegate:self];
-        
-        UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-        [navigationController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-        [navigationController setModalPresentationStyle:UIModalPresentationFormSheet];
-        [[parentController navigationController] presentModalViewController:navigationController animated:YES];
+    GeoLocFindViewController* controller = [[GeoLocFindViewController alloc] initWithDelegate:self];
+
+    UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+    [navigationController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+    [navigationController setModalPresentationStyle:UIModalPresentationFormSheet];
+    [[parentController navigationController] presentModalViewController:navigationController animated:YES];
+    [navigationController release];
+    [controller release];
 //        NSMutableDictionary* query = [NSMutableDictionary dictionary];
 //        [query setValue:(id)self forKey:kURLQueryDelegate];
 //        TTOpenURLWithQuery(mViewControllerURL, query);

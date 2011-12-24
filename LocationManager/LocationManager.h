@@ -18,6 +18,7 @@
 #define kUserLocationTimestampStoreKey  @"User_location_timestamp"
 #define kUserLocationStoreKey           @"User_location"
 
+@class GeoLocFindViewController;
 @interface LocationManager : NSObject <CLLocationManagerDelegate, BSForwardGeocoderDelegate, GeoLocFindViewDelegate> {
     CLLocationManager*                  mLocationManager;
     CLLocation*                         mCurrentLocation;
@@ -47,5 +48,5 @@
 - (void)stopSignificantChangeUpdates;
 
 -(void) chooseCustomLocationFromController:(UIViewController*) parentController;
-
+-(void) chooseCustomLocationFromController:(UIViewController*) parentController usingController:(GeoLocFindViewController*)controller;
 @end
