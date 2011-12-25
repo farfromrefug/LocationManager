@@ -34,7 +34,7 @@
 
 @property (nonatomic, retain) NSString* viewControllerURL;
 @property (nonatomic, retain) CLLocation* currentLocation;
-@property (nonatomic, retain) MKReverseGeocoder *reverseGeocoder;
+//@property (nonatomic, retain) MKReverseGeocoder *reverseGeocoder;
 @property (nonatomic, retain) CLLocation* customLocation;
 @property (nonatomic, retain) CustomPlacemark* currentPlacemark;
 @property (nonatomic, retain) CustomPlacemark* customPlacemark;

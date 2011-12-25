@@ -15,7 +15,7 @@
 @synthesize currentPlacemark = mCurrentPlacemark;
 @synthesize customLocation = mCustomLocation;
 @synthesize customPlacemark = mCustomPlacemark;
-@synthesize reverseGeocoder;
+//@synthesize reverseGeocoder;
 @synthesize viewControllerURL = mViewControllerURL;
 
 static LocationManager*	sharedInstance = nil;
