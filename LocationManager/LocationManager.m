@@ -70,7 +70,6 @@ static LocationManager*	sharedInstance = nil;
         }
     }
     
-    
     [mLocationManager startUpdatingLocation];
 }
 
@@ -100,25 +99,29 @@ static LocationManager*	sharedInstance = nil;
         [self reverseGeocodeCurrentLocation];
 }
 
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Localisation impossible", nil) message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+    self.currentLocation = nil;
+}
+
 #pragma mark -
 #pragma mark Custom Methods
 
 - (void) goToCurrentLocation
 {
-    if (self.customLocation)
-    {
-        self.customLocation = nil;
-        self.customPlacemark = nil;
-    }
+    self.currentLocation = nil;
+    self.currentPlacemark = nil;
+    self.customLocation = nil;
+    self.customPlacemark = nil;
+    [mLocationManager stopUpdatingLocation];
+    [mLocationManager startUpdatingLocation];
 }
 
 - (void)reverseGeocodeCurrentLocation
 {
-//    DLog(@"we need reverse geoloc for %f, %f", self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude);
-//    [self.reverseGeocoder cancel];
-//    self.reverseGeocoder =
-//    [[[MKReverseGeocoder alloc] initWithCoordinate:self.currentLocation.coordinate] autorelease];
-//    self.reverseGeocoder.delegate = s
     [mForwardGeocoder findLocationWithLat:self.currentLocation.coordinate.latitude andLong:self.currentLocation.coordinate.longitude];
 }
 
@@ -137,48 +140,10 @@ static LocationManager*	sharedInstance = nil;
 	[super dealloc];
 }
 
-//#pragma mark -
-//#pragma mark MKReverseGeocoder Delegate
-//
-//- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error
-//{
-//    NSString *errorMessage = [error localizedDescription];
-//    DLog(@"reverseGeocoder ERROR: %@", errorMessage);
-//    
-////    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cannot obtain address."
-////                                                        message:errorMessage
-////                                                       delegate:nil
-////                                              cancelButtonTitle:@"OK"
-////                                              otherButtonTitles:nil];
-////    [alertView show];
-////    [alertView release];
-//    
-//    self.reverseGeocoder.delegate = nil;
-////    [self.reverseGeocoder autorelease];
-//}
-//
-//- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark
-//{
-//    CustomPlacemark* newplacemark = [[[CustomPlacemark alloc] initWithMKPlacemark:placemark] autorelease];
-//    self.currentPlacemark = newplacemark;
-//    
-//    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-//    NSData *myEncodedObject = [NSKeyedArchiver archivedDataWithRootObject: self.currentPlacemark];
-//    [prefs setObject:myEncodedObject forKey:kUserLocationStoreKey];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-//}
-
 #pragma mark - Custom Location
 
 -(void) chooseCustomLocationFromController:(UIViewController*) parentController usingController:(GeoLocFindViewController*)controller
 {
-    //around adress
-    //    if (mViewControllerURL == nil)
-    //    {
-    //        DLog(@"viewControllerURL has not been set!");
-    //    }
-    //    else
-    //    {
     controller.delegate = self;
     
     UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
@@ -186,21 +151,11 @@ static LocationManager*	sharedInstance = nil;
     [navigationController setModalPresentationStyle:UIModalPresentationFormSheet];
     [parentController presentModalViewController:navigationController animated:YES];
     [navigationController release];
-    //        NSMutableDictionary* query = [NSMutableDictionary dictionary];
-    //        [query setValue:(id)self forKey:kURLQueryDelegate];
-    //        TTOpenURLWithQuery(mViewControllerURL, query);
-    //    }
 }
 
 -(void) chooseCustomLocationFromController:(UIViewController*) parentController
 {
-    //around adress
-//    if (mViewControllerURL == nil)
-//    {
-//        DLog(@"viewControllerURL has not been set!");
-//    }
-//    else
-//    {
+
     GeoLocFindViewController* controller = [[GeoLocFindViewController alloc] initWithDelegate:self];
 
     UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
@@ -209,10 +164,6 @@ static LocationManager*	sharedInstance = nil;
     [[parentController navigationController] presentModalViewController:navigationController animated:YES];
     [navigationController release];
     [controller release];
-//        NSMutableDictionary* query = [NSMutableDictionary dictionary];
-//        [query setValue:(id)self forKey:kURLQueryDelegate];
-//        TTOpenURLWithQuery(mViewControllerURL, query);
-//    }
 }
 
 #pragma mark - ForwardGeocodeDelegate Methods
@@ -227,19 +178,22 @@ static LocationManager*	sharedInstance = nil;
 #pragma mark BSForwardGeocoder Delegate Method
 - (void)forwardGeocoderFoundLocation
 {
-	DLog(@"");
 	if ([[mForwardGeocoder results] count] == 0)
 	{
-		UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Erreur", @"alert_generic_error_title") message:NSLocalizedString(@"Aucun résultat n'a été trouvé. Essayez de préciser votre recherche.", @"request_response__error_no_result_found") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", @"alert_button_ok") otherButtonTitles:nil];
-		[alert show];
-		[alert release];
+        
+        DLog(@"Could not get a placemark for you Lat,long current coordinates: %f, %f", mCurrentLocation.coordinate.latitude, mCurrentLocation.coordinate.longitude);
+//		UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Erreur", @"alert_generic_error_title") message:NSLocalizedString(@"Aucun résultat n'a été trouvé. Essayez de préciser votre recherche.", @"request_response__error_no_result_found") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", @"alert_button_ok") otherButtonTitles:nil];
+//		[alert show];
+//		[alert release];
+        self.currentPlacemark = nil;
 	}
 	else
 	{
         if ([[mForwardGeocoder results] count] > 0)
         {
-            CustomPlacemark* newplacemark = [[[CustomPlacemark alloc] initWithBSKmlResult:[[mForwardGeocoder results] objectAtIndex:0]] autorelease];
+            CustomPlacemark* newplacemark = [[CustomPlacemark alloc] initWithBSKmlResult:[[mForwardGeocoder results] objectAtIndex:0]];
             self.currentPlacemark = newplacemark;
+            [newplacemark release];
         }
 
 	}

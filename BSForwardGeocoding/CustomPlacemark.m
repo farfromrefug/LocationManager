@@ -142,7 +142,6 @@
 	[mSubLocality release];
 	[mSubtitle release];
 	[mSubThoroughfare release];
-	[mSubLocality release];
 	[mAdministrativeArea release];
 	[mSubAdministrativeArea release];
 	[mPostalCode release];
