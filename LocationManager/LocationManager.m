@@ -101,9 +101,10 @@ static LocationManager*	sharedInstance = nil;
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Localisation impossible", nil) message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
-    [alert release];
+    DLog(@"impossible to locate you! %@", [error localizedDescription]);
+//    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Localisation impossible", nil) message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//    [alert show];
+//    [alert release];
     self.currentLocation = nil;
 }
 
@@ -191,7 +192,8 @@ static LocationManager*	sharedInstance = nil;
 	{
         if ([[mForwardGeocoder results] count] > 0)
         {
-            CustomPlacemark* newplacemark = [[CustomPlacemark alloc] initWithBSKmlResult:[[mForwardGeocoder results] objectAtIndex:0]];
+            BSKmlResult* result = [[mForwardGeocoder results] objectAtIndex:0];
+            CustomPlacemark* newplacemark = [[CustomPlacemark alloc] initWithBSKmlResult:result];
             self.currentPlacemark = newplacemark;
             [newplacemark release];
         }
