@@ -52,7 +52,10 @@ static LocationManager*	sharedInstance = nil;
 {
     if (![CLLocationManager locationServicesEnabled])
     {
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Geolocalisation Necessaire", nil) message:@"IZI-Pass a besoin de votre localisation pour vous offrir les meilleurs offres!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Geolocalisation Necessary", @"title for alert on geoloc not possible") message:[NSString stringWithFormat:@"%@ %@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"], NSLocalizedString(@"requires location service, please enable it in your settings", @"message for alert on geoloc not possible")]
+                              
+                              
+                               delegate:self cancelButtonTitle:NSLocalizedString(@"OK", @"OK") otherButtonTitles:nil];
         [alert show];
         [alert release];
     }
@@ -113,10 +116,10 @@ static LocationManager*	sharedInstance = nil;
 
 - (void) goToCurrentLocation
 {
-    self.currentLocation = nil;
-    self.currentPlacemark = nil;
-    self.customLocation = nil;
-    self.customPlacemark = nil;
+    NI_RELEASE_SAFELY(mCustomLocation);
+    NI_RELEASE_SAFELY(mCustomPlacemark);
+    NI_RELEASE_SAFELY(mCurrentLocation);
+    NI_RELEASE_SAFELY(mCurrentPlacemark);
     [mLocationManager stopUpdatingLocation];
     [mLocationManager startUpdatingLocation];
 }
@@ -183,9 +186,6 @@ static LocationManager*	sharedInstance = nil;
 	{
         
         DLog(@"Could not get a placemark for you Lat,long current coordinates: %f, %f", mCurrentLocation.coordinate.latitude, mCurrentLocation.coordinate.longitude);
-//		UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Erreur", @"alert_generic_error_title") message:NSLocalizedString(@"Aucun résultat n'a été trouvé. Essayez de préciser votre recherche.", @"request_response__error_no_result_found") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", @"alert_button_ok") otherButtonTitles:nil];
-//		[alert show];
-//		[alert release];
         self.currentPlacemark = nil;
 	}
 	else

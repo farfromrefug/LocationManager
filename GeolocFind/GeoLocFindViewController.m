@@ -52,21 +52,17 @@
 {
 	[super viewDidLoad];
     
-    self.navigationItem.titleView = [[[CustomTitleView alloc] initWithTitle:@"Chercher une adresse"] autorelease];
+    self.navigationItem.titleView = [[[CustomTitleView alloc] initWithTitle:NSLocalizedString(@"Find an address",@"title for GeolocFindViewController")] autorelease];
     
     //Create the custom back button
-    TTButton *backButtonView = [TTButton buttonWithStyle:@"toolbarModalCancelButton:" title:@"  Retour"]; 
+    TTButton *backButtonView = [TTButton buttonWithStyle:@"toolbarModalCancelButton:" title:NSLocalizedString(@" Back", @"title for back button")]; 
     backButtonView.frame = CGRectMake(0, 0, 55, 32);
     [backButtonView addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:backButtonView] autorelease];	
     
-//    mSearchBar = [[UISearchBar alloc] init];
-//    mSearchBar.placeholder = NSLocalizedString(@"Type an address to search", nil) ;
     mSearchBar.tintColor = [UIColor blackColor];
     [mSearchBar setAutocapitalizationType:UITextAutocapitalizationTypeNone];
     mSearchBar.delegate = self;
-//    [self.view addSubview:mSearchBar];
-//    [mSearchBar sizeToFit];
     bSearchIsOn = NO;
     
     
@@ -256,7 +252,7 @@
 	DLog(@"");
 	if ([[mForwardGeocoder results] count] == 0)
 	{
-		UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Erreur", @"alert_generic_error_title") message:NSLocalizedString(@"Aucun résultat n'a été trouvé. Essayez de préciser votre recherche.", @"request_response__error_no_result_found") delegate:nil cancelButtonTitle:NSLocalizedString(@"Ok", @"alert_button_ok") otherButtonTitles:nil];
+		UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"alert_generic_error_title") message:NSLocalizedString(@"No result found, try precising your search", @"request_response__error_no_result_found") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"OK") otherButtonTitles:nil];
 		[alert show];
 		[alert release];
 	}
